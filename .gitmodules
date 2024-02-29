@@ -1,0 +1,3 @@
+[submodule "src/main/my_chess_games"]
+	path = src/main/my_chess_games
+	url = https://github.com/GabrielNatucci/my_chess_games
