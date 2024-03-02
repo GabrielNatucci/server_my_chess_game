@@ -1,5 +1,9 @@
 package com.natuccischessserver.chess_server.repository;
 
-public interface PlayerRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.natuccischessserver.chess_server.model.Player;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public interface PlayerRepository extends JpaRepository<Player, Integer> {
 }
