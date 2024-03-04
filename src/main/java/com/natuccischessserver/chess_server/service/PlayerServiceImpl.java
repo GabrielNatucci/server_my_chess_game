@@ -7,13 +7,14 @@ import com.natuccischessserver.chess_server.repository.PlayerRepository;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
-
     @Autowired
     private PlayerRepository playerRepository;
 
     @Override
     public Player savePlayer(Player p) {
-        if (p.getEmail() == "" || p.getPassword() == "") {
+        System.out.println(playerRepository.findPlayerByEmail(p.getEmail()).size());
+        if (p.getEmail() == "" || p.getPassword() == ""
+                || playerRepository.findPlayerByEmail(p.getEmail()).size() != 0) {
             return null;
         } else {
             return playerRepository.save(p);
