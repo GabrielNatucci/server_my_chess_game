@@ -12,7 +12,16 @@ public class PlayerServiceImpl implements PlayerService {
     private PlayerRepository playerRepository;
 
     @Override
-    public Player savePlayer(Player player) {
-        return playerRepository.save(player);
+    public Player savePlayer(Player p) {
+        if (p.getEmail() == "" || p.getPassword() == "") {
+            return null;
+        } else {
+            return playerRepository.save(p);
+        }
+    }
+
+    @Override
+    public Player logInPlayer(String email, String password) {
+        return playerRepository.findPlayerByEmailAndPassword(email, password);
     }
 }
