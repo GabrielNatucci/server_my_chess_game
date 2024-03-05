@@ -12,7 +12,6 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player savePlayer(Player p) {
-        System.out.println(playerRepository.findPlayerByEmail(p.getEmail()).size());
         if (p.getEmail() == "" || p.getPassword() == ""
                 || playerRepository.findPlayerByEmail(p.getEmail()).size() != 0) {
             return null;
