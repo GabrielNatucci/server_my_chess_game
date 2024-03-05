@@ -29,12 +29,15 @@ public class PlayerController {
 
     @PostMapping("/login")
     ResponseEntity<String> logInPlayer(@RequestBody Player p) {
-        if (playerService.logInPlayer(p.getEmail(), p.getPassword()) == null) {
-            // se o jogador errar a senha ou se não tiver conta no email dele registrado
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else {
-            // resposta OK
-            return new ResponseEntity<>(HttpStatus.OK);
+        // se o jogador errar a senha ou se não tiver o username ou o email dele
+        // registrado
+        if (playerService.logInPlayerByEmail(p.getEmail(), p.getPassword()) == null) {
+            if (playerService.logInPlayerByName(p.getName(), p.getPassword()) == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
+
+        // resposta OK, ou seja, o usuário acertou a senha
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

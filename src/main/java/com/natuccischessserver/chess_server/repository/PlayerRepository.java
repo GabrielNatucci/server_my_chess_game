@@ -9,5 +9,9 @@ import java.util.List;
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
     public Player findPlayerByEmailAndPassword(String email, String Password);
 
+    public Player findPlayerByNameAndPassword(String name, String Password);
+
     public List<Player> findPlayerByEmail(String email);
+
+    public List<Player> findPlayerByName(String name);
 }
