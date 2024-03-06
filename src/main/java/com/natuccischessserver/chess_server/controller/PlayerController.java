@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.natuccischessserver.chess_server.model.Player;
-import com.natuccischessserver.chess_server.service.PlayerService;
+import com.natuccischessserver.chess_server.service.player.PlayerService;
 
 @RestController
 @RequestMapping("/player")
