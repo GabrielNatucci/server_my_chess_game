@@ -1,4 +1,4 @@
-package com.natuccischessserver.chess_server.service;
+package com.natuccischessserver.chess_server.service.chess_game;
 
 import com.natuccischessserver.chess_server.model.ChessGame;
 

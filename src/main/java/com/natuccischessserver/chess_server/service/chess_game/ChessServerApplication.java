@@ -1,4 +1,4 @@
-package com.natuccischessserver.chess_server;
+package com.natuccischessserver.chess_server.service.chess_game;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
