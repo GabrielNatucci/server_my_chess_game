@@ -8,4 +8,6 @@ public interface PlayerService {
     public Player logInPlayerByEmail(String email, String password);
 
     public Player logInPlayerByName(String name, String password);
+
+    public Player findPlayerById(int id);
 }

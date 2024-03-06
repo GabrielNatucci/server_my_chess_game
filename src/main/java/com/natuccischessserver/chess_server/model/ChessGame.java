@@ -18,12 +18,37 @@ public class ChessGame {
 
     @ManyToOne
     @JoinColumn(name = "player_id", nullable = false)
-    private Player white_player;
-
-    @ManyToOne
-    @JoinColumn(name = "player_id", nullable = false)
-    private Player black_Player;
+    private Player player;
 
     @Column(nullable = false, length = 5)
     private String who_won;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public int getPlayerId() {
+        return player.getId();
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public String getWho_won() {
+        return who_won;
+    }
+
+    public void setWho_won(String who_won) {
+        this.who_won = who_won;
+    }
+
 }

@@ -5,7 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.natuccischessserver.chess_server.repository.PlayerRepository;
+import com.natuccischessserver.chess_server.service.player.PlayerServiceImpl;
 
 @Entity
 @Table(name = "player")
@@ -13,6 +18,9 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @OneToMany
+    private List<ChessGame> chessgames;
 
     @Column(nullable = false, length = 50)
     private String email;
@@ -23,7 +31,8 @@ public class Player {
     @Column(nullable = false, length = 20)
     private String password;
 
-    public Player() {
+    public Player(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -57,5 +66,4 @@ public class Player {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

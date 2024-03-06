@@ -1,5 +1,7 @@
 package com.natuccischessserver.chess_server.service.player;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.natuccischessserver.chess_server.model.Player;
@@ -29,5 +31,10 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player logInPlayerByName(String name, String password) {
         return playerRepository.findPlayerByNameAndPassword(name, password);
+    }
+
+    @Override
+    public Player findPlayerById(int id) {
+        return null;
     }
 }

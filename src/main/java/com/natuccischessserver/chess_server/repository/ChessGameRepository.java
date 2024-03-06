@@ -6,5 +6,4 @@ import com.natuccischessserver.chess_server.model.ChessGame;
 
 @Repository
 public interface ChessGameRepository extends JpaRepository<ChessGame, Integer> {
-
 }
