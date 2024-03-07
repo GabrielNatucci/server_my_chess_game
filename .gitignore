@@ -1,4 +1,5 @@
 HELP.md
+chess_server.sql
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
