@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.natuccischessserver.chess_server.model.Player;
 import com.natuccischessserver.chess_server.service.PlayerService;
+import com.natuccischessserver.chess_server.token.Token;
 
 @RestController
 @RequestMapping("/player")
@@ -20,8 +21,10 @@ public class PlayerController {
 
     @PostMapping("/add")
     ResponseEntity<String> add(@RequestBody Player p) {
+        p.setAuthtoken(Token.generateNewToken());
+
         if (playerService.savePlayer(p) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Hello wolrd", HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }

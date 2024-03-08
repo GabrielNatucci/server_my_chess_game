@@ -10,6 +10,8 @@ public class Token {
     public static String generateNewToken() {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);
+        System.out.println(base64Encoder.encodeToString(randomBytes));
+        System.out.println(base64Encoder.encodeToString(randomBytes).length());
         return base64Encoder.encodeToString(randomBytes);
     }
 }

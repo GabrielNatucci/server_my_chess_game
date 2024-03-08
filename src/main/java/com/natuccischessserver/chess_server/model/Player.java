@@ -23,6 +23,9 @@ public class Player {
     @Column(nullable = false, length = 20)
     private String password;
 
+    @Column(nullable = true, length = 32)
+    private String authtoken;
+
     public Player() {
     }
 
@@ -30,10 +33,11 @@ public class Player {
         return id;
     }
 
-    public void setId(int id, String email, String password) {
+    public void setId(int id, String email, String password, String authtoken) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.authtoken = authtoken;
     }
 
     public String getEmail() {
@@ -58,6 +62,18 @@ public class Player {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getAuthtoken() {
+        return authtoken;
+    }
+
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
 }
