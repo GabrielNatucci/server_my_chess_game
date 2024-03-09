@@ -9,7 +9,11 @@ import java.util.List;
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
     public Player findPlayerByEmailAndPassword(String email, String Password);
 
+    public Player findPlayerById(int id);
+
     public Player findPlayerByNameAndPassword(String name, String Password);
+
+    public Player findPlayerByNameOrEmailAndPassword(String name, String email, String password);
 
     public List<Player> findPlayerByEmail(String email);
 

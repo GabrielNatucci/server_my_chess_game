@@ -22,6 +22,13 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    public Player updatePlayerAuthToken(Player p) {
+        Player player = playerRepository.findPlayerById(p.getId());
+        player.setAuthtoken(p.getAuthtoken());
+        return playerRepository.save(player);
+    }
+
+    @Override
     public Player logInPlayerByEmail(String email, String password) {
         return playerRepository.findPlayerByEmailAndPassword(email, password);
     }
@@ -29,5 +36,10 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player logInPlayerByName(String name, String password) {
         return playerRepository.findPlayerByNameAndPassword(name, password);
+    }
+
+    @Override
+    public Player logInPlayerByNameOrEmail(String name, String email, String password) {
+        return playerRepository.findPlayerByNameOrEmailAndPassword(name, email, password);
     }
 }

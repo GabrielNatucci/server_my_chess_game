@@ -1,6 +1,7 @@
 package com.natuccischessserver.chess_server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,10 +22,8 @@ public class PlayerController {
 
     @PostMapping("/add")
     ResponseEntity<String> add(@RequestBody Player p) {
-        p.setAuthtoken(Token.generateNewToken());
-
         if (playerService.savePlayer(p) == null) {
-            return new ResponseEntity<>("Hello wolrd", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -34,13 +33,21 @@ public class PlayerController {
     ResponseEntity<String> logInPlayer(@RequestBody Player p) {
         // se o jogador errar a senha ou se não tiver o username ou o email dele
         // registrado
-        if (playerService.logInPlayerByEmail(p.getEmail(), p.getPassword()) == null) {
-            if (playerService.logInPlayerByName(p.getName(), p.getPassword()) == null) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
+        if (playerService.logInPlayerByNameOrEmail(p.getName(), p.getEmail(), p.getPassword()) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // resposta OK, ou seja, o usuário acertou a senha
-        return new ResponseEntity<>(HttpStatus.OK);
+        // gera o token de autenticação para o usuário não precisar ficar logando todo
+        // dia
+        p = playerService.logInPlayerByName(p.getName(), p.getPassword());
+        p.setAuthtoken(Token.generateNewToken());
+        playerService.updatePlayerAuthToken(p);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("authtoken", p.getAuthtoken());
+        playerService.savePlayer(p);
+
+        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
     }
 }
