@@ -12,4 +12,6 @@ public interface PlayerService {
     public Player logInPlayerByName(String name, String password);
 
     public Player logInPlayerByNameOrEmail(String name, String email, String password);
+
+    public Player logInPlayerByAuthtoken(String name, String authtoken);
 }

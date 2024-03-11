@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.natuccischessserver.chess_server.model.Player;
+import com.natuccischessserver.chess_server.model.PlayerRest;
 import com.natuccischessserver.chess_server.service.PlayerService;
 import com.natuccischessserver.chess_server.token.Token;
 
@@ -30,7 +32,8 @@ public class PlayerController {
     }
 
     @PostMapping("/login")
-    ResponseEntity<String> logInPlayer(@RequestBody Player p) {
+    @ResponseBody
+    public ResponseEntity logInPlayer(@RequestBody Player p) {
         // se o jogador errar a senha ou se não tiver o username ou o email dele
         // registrado
         if (playerService.logInPlayerByNameOrEmail(p.getName(), p.getEmail(), p.getPassword()) == null) {
@@ -43,11 +46,19 @@ public class PlayerController {
         p = playerService.logInPlayerByName(p.getName(), p.getPassword());
         p.setAuthtoken(Token.generateNewToken());
         playerService.updatePlayerAuthToken(p);
-
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("authtoken", p.getAuthtoken());
         playerService.savePlayer(p);
 
-        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
+        return new ResponseEntity(new PlayerRest(p.getAuthtoken(), p.getName()), HttpStatus.OK);
+    }
+
+    @PostMapping("/loginbyauthtoken")
+    public ResponseEntity logInPlayerByAuthtoken(@RequestBody Player p) {
+        System.out.println(p.getAuthtoken());
+
+        if (playerService.logInPlayerByAuthtoken(p.getName(), p.getAuthtoken()) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -42,4 +42,9 @@ public class PlayerServiceImpl implements PlayerService {
     public Player logInPlayerByNameOrEmail(String name, String email, String password) {
         return playerRepository.findPlayerByNameOrEmailAndPassword(name, email, password);
     }
+
+    @Override
+    public Player logInPlayerByAuthtoken(String name, String authtoken) {
+        return playerRepository.findPlayerByNameAndAuthtoken(name, authtoken);
+    }
 }
