@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class MoveController {
-
-    @MessageMapping
-    @SendTo("topic/msg")
-    public Move move(Move move) {
-        return new Move(1, "e4");
+    @MessageMapping("/move")
+    @SendTo("topic/moveplayer")
+    public Move move(Move move) throws Exception {
+        System.out.println(move);
+        return new Move(move.getPlayer(), move.getMove_str());
     }
 }

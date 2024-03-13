@@ -1,27 +1,29 @@
 package com.natuccischessserver.chess_server.websockets;
 
+import com.natuccischessserver.chess_server.model.Player;
+
 public class Move {
-    private int player_id;
-    private String move;
+    private Player player;
+    private String move_str;
 
-    public Move(int player_id, String move) {
-        this.player_id = player_id;
-        this.move = move;
+    public Move(Player player, String move) {
+        this.player = player;
+        this.move_str = move;
     }
 
-    public int getPlayer_id() {
-        return player_id;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setPlayer_id(int player_id) {
-        this.player_id = player_id;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    public String getMove() {
-        return move;
+    public String getMove_str() {
+        return move_str;
     }
 
-    public void setMove(String move) {
-        this.move = move;
+    public void setMove_str(String move) {
+        this.move_str = move;
     }
 }
