@@ -7,9 +7,10 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class MoveController {
     @MessageMapping("/move")
-    @SendTo("topic/moveplayer")
+    @SendTo("/move_resp")
     public Move move(Move move) throws Exception {
         System.out.println(move);
+        System.out.println(move.getMove_str());
         return new Move(move.getPlayer(), move.getMove_str());
     }
 }

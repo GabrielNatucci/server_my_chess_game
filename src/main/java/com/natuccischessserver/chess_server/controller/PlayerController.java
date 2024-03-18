@@ -23,6 +23,7 @@ public class PlayerController {
 
     @PostMapping("/add")
     ResponseEntity<String> add(@RequestBody Player p) {
+        System.out.println("cu");
         if (playerService.savePlayer(p) == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
