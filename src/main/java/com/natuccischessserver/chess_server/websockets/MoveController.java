@@ -9,8 +9,10 @@ public class MoveController {
     @MessageMapping("/move")
     @SendTo("/move_resp")
     public Move move(Move move) throws Exception {
-        System.out.println(move);
-        System.out.println(move.getMove_str());
-        return new Move(move.getPlayer(), move.getMove_str());
+        // remove os " " da string
+        String move_str = move.getMove_str().replaceAll("\\s", "");
+
+        // retorna o movimento pra quem tiver inscrito no jogo
+        return new Move(move.getPlayer(), move_str, move.getColor());
     }
 }
