@@ -23,7 +23,6 @@ public class PlayerController {
 
     @PostMapping("/add")
     ResponseEntity<String> add(@RequestBody Player p) {
-        System.out.println("cu");
         if (playerService.savePlayer(p) == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
@@ -33,7 +32,7 @@ public class PlayerController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity logInPlayer(@RequestBody Player p) {
+    public ResponseEntity<PlayerRest> logInPlayer(@RequestBody Player p) {
         // se o jogador errar a senha ou se não tiver o username ou o email dele
         // registrado
         if (playerService.logInPlayerByNameOrEmail(p.getName(), p.getEmail(), p.getPassword()) == null) {
@@ -48,17 +47,16 @@ public class PlayerController {
         playerService.updatePlayerAuthToken(p);
         playerService.savePlayer(p);
 
-        return new ResponseEntity(new PlayerRest(p.getAuthtoken(), p.getName()), HttpStatus.OK);
+        return new ResponseEntity<PlayerRest>(new PlayerRest(p.getAuthtoken(), p.getName()), HttpStatus.OK);
     }
 
     @PostMapping("/loginbyauthtoken")
-    public ResponseEntity logInPlayerByAuthtoken(@RequestBody Player p) {
-        System.out.println(p.getAuthtoken());
-
+    public ResponseEntity<HttpStatus> logInPlayerByAuthtoken(@RequestBody Player p) {
+        // se o player for nulo
         if (playerService.logInPlayerByAuthtoken(p.getName(), p.getAuthtoken()) == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
     }
 }
