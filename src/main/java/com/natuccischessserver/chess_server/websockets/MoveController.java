@@ -5,16 +5,18 @@ import java.util.ArrayList;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.natuccischessserver.chess_server.model.Player;
 
 @Controller
 public class MoveController {
+
+    @CrossOrigin
     @MessageMapping("/move")
     @SendTo("/move_resp")
     public Move move(Move move) throws Exception {
         try {
-            // remove os " " da string
             ArrayList<Integer> start_square = move.getStart_square();
             ArrayList<Integer> end_square = move.getEnd_square();
 

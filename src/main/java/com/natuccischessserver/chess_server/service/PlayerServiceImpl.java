@@ -16,6 +16,7 @@ public class PlayerServiceImpl implements PlayerService {
                 || playerRepository.findPlayerByEmail(p.getEmail()).size() != 0
                 || playerRepository.findPlayerByName(p.getName()).size() != 0) {
             return null;
+
         } else {
             return playerRepository.save(p);
         }
