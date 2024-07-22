@@ -1,5 +1,9 @@
 package com.natuccischessserver.chess_server.controller;
 
+import com.natuccischessserver.chess_server.model.Player;
+import com.natuccischessserver.chess_server.model.PlayerRest;
+import com.natuccischessserver.chess_server.service.PlayerService;
+import com.natuccischessserver.chess_server.token.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,15 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.natuccischessserver.chess_server.model.Player;
-import com.natuccischessserver.chess_server.model.PlayerRest;
-import com.natuccischessserver.chess_server.service.PlayerService;
-import com.natuccischessserver.chess_server.token.Token;
 
 @RestController
 @RequestMapping("/player")
 @CrossOrigin
 public class PlayerController {
+
     @Autowired
     private PlayerService playerService;
 
@@ -35,7 +36,14 @@ public class PlayerController {
     public ResponseEntity<PlayerRest> logInPlayer(@RequestBody Player p) {
         // se o jogador errar a senha ou se não tiver o username ou o email dele
         // registrado
-        if (playerService.logInPlayerByNameOrEmail(p.getName(), p.getEmail(), p.getPassword()) == null) {
+        if (
+            playerService.logInPlayerByNameOrEmail(
+                p.getName(),
+                p.getEmail(),
+                p.getPassword()
+            ) ==
+            null
+        ) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -47,13 +55,24 @@ public class PlayerController {
         playerService.updatePlayerAuthToken(p);
         playerService.savePlayer(p);
 
-        return new ResponseEntity<PlayerRest>(new PlayerRest(p.getAuthtoken(), p.getName()), HttpStatus.OK);
+        return new ResponseEntity<PlayerRest>(
+            new PlayerRest(p.getAuthtoken(), p.getName()),
+            HttpStatus.OK
+        );
     }
 
     @PostMapping("/loginbyauthtoken")
-    public ResponseEntity<HttpStatus> logInPlayerByAuthtoken(@RequestBody Player p) {
+    public ResponseEntity<HttpStatus> logInPlayerByAuthtoken(
+        @RequestBody Player p
+    ) {
         // se o player for nulo
-        if (playerService.logInPlayerByAuthtoken(p.getName(), p.getAuthtoken()) == null) {
+        if (
+            playerService.logInPlayerByAuthtoken(
+                p.getName(),
+                p.getAuthtoken()
+            ) ==
+            null
+        ) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
