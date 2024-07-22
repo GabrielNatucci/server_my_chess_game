@@ -1,13 +1,11 @@
 package com.natuccischessserver.chess_server.websockets;
 
+import com.natuccischessserver.chess_server.model.Player;
 import java.util.ArrayList;
-
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
-import com.natuccischessserver.chess_server.model.Player;
 
 @Controller
 public class MoveController {
@@ -25,7 +23,13 @@ public class MoveController {
             player.setAuthtoken("");
 
             // retorna o movimento pra quem tiver inscrito no jogo
-            return new Move(player, start_square, end_square, 200, move.getColor());
+            return new Move(
+                player,
+                start_square,
+                end_square,
+                200,
+                move.getColor()
+            );
         } catch (Exception e) {
             return new Move(200);
         }
