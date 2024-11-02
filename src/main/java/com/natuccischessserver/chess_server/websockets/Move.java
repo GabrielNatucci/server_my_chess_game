@@ -1,18 +1,23 @@
 package com.natuccischessserver.chess_server.websockets;
 
+import com.natuccischessserver.chess_server.model.Player;
 import java.util.ArrayList;
 
-import com.natuccischessserver.chess_server.model.Player;
-
 public class Move {
+
     private Player player;
     private ArrayList<Integer> start_square;
     private ArrayList<Integer> end_square;
     private int status;
     private String color;
 
-    public Move(Player player, ArrayList<Integer> start_square, ArrayList<Integer> end_square, int status,
-            String color) {
+    public Move(
+        Player player,
+        ArrayList<Integer> start_square,
+        ArrayList<Integer> end_square,
+        int status,
+        String color
+    ) {
         this.player = player;
         this.start_square = start_square;
         this.end_square = end_square;
@@ -63,5 +68,4 @@ public class Move {
     public void setColor(String color) {
         this.color = color;
     }
-
 }
